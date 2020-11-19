@@ -1,6 +1,20 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Task
+Your task is to implement a UI for the given jobs data:
+1. Rendering the list of jobs as individual cards showing the most important information (Title, Company, City, Investors)
+1. A search interface at the top that will filter down the list with the following elements:
+   1. Search box for Job Title
+   1. Filter for Company
+   1. Filter for City
+   1. *Filter by Investors (only jobs from companies with these investors)
+1. A reset button that removes any applied filters
 
-## Introduction
+(Tasks items with **"*" are optional**)
+
+We’re not giving you any restrictions in how it should look. You can take inspiration from existing job platforms or just implement your own design&layout. The focus is on the search element + list view, no need to implement a complex page layout.
+
+You’re also free to use any framework and styling library that you prefer. Just FYI our stack at Talentspace ist Ant Design with styled-components.
+
+## Overview
 
 This project uses a `docker-compose` file to bundle the React app with a Postgres database and [Hasura GraphQL Engine](https://hasura.io/).
 Upon start the database will be initialized with tables `jobs`, `companies`, `investors` and `company_investors` and seeded with data.
