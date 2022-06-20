@@ -6,6 +6,14 @@ const QUERY_JOBS = gql`
       id
       title
       city
+      company {
+        name
+        company_investors {
+          company {
+            name
+          }
+        }
+      }
     }
   }
 `;

@@ -1,6 +1,6 @@
 
 # specify a base image
-FROM node:alpine
+FROM node:16-alpine
 
 # setup working directory
 WORKDIR '/usr/src/app'
@@ -11,7 +11,7 @@ ENV PATH /usr/src/app/node_modules/.bin:$PATH
 # install and cache app dependencies
 ADD package.json /usr/src/app/package.json
 RUN yarn install --silent
-RUN yarn add global react-scripts@3.4.0
+RUN yarn add global react-scripts@5.0.1
 
 # add app
 ADD . /usr/src/app
