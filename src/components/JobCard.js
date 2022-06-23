@@ -1,5 +1,4 @@
 import React from "react";
-import { createGlobalStyle } from "styled-components";
 import Investor from "./Investor";
 
 export default function JobCard({ job }) {
@@ -12,7 +11,7 @@ export default function JobCard({ job }) {
         <h5>Investors</h5>
         <>
           {job.company.company_investors.map((investor, index) => (
-            <Investor key={index} name={investor.company.name} />
+            <Investor key={index} name={investor.investor.name} />
           ))}
         </>
       </div>

@@ -30,4 +30,18 @@
 section   {
   padding-bottom: 30px;
   padding-top: 30px;
+  
+}
+
+.form-wrapper   {
+  border: 1px solid #ccc;
+  width: 80%;
+  margin: 0 auto;
+  padding: .5rem;
+  
+}
+
+.form   {
+  display: flex;
+  justify-content: space-between;
 }
