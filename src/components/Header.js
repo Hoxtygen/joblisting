@@ -1,16 +1,26 @@
 import React from "react";
 import { TextField, Button } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
 import { useQuery } from "@apollo/client";
 import { FORM_QUERY } from "../queries/Jobs";
 
-export default function Header({ formData, handleOnChange, handleSubmit }) {
+export default function Header({
+  formData,
+  handleOnChange,
+  handleSubmit,
+  handleReset,
+}) {
   const { title, city, company, investor } = formData;
   const { data } = useQuery(FORM_QUERY);
   /**
-   * Add comment as to why fetching was done here and to 
-   * why autocomplete wasn't used.
+   * Fetching of data was done here to keep 
+   * the list updated at all times independent of filtering and searcing 
+   * results
+   * 
+   * Could have used autocomplete instead of select but that'd limit the user to 
+   * only the company they know of.They should be able to see all companies.
+   * 
+   * 
    */
 
   const rawCities =
@@ -19,12 +29,14 @@ export default function Header({ formData, handleOnChange, handleSubmit }) {
       .map((job) => job.city)
       .sort((a, b) => (b.toLowerCase() < a.toLowerCase() ? 1 : -1));
   const uniqueCities = [...new Set(rawCities)];
+
   const rawCompanies =
     data &&
     data.jobs
       .map((job) => job.company.name)
       .sort((a, b) => (b.toLowerCase() < a.toLowerCase() ? 1 : -1));
   const uniqueCompanies = [...new Set(rawCompanies)];
+
   const rawInvestors =
     data &&
     data.jobs
@@ -32,8 +44,8 @@ export default function Header({ formData, handleOnChange, handleSubmit }) {
       .flat()
       .map((item) => item.investor.name)
       .sort((a, b) => (b.toLowerCase() < a.toLowerCase() ? 1 : -1));
+
   const uniqueInvestors = [...new Set(rawInvestors)];
-  console.log("Investors:", uniqueInvestors);
   return (
     <header>
       <div className="header-inner">
@@ -41,23 +53,29 @@ export default function Header({ formData, handleOnChange, handleSubmit }) {
       </div>
       <div className="form-wrapper">
         <form action="" className="form" onSubmit={handleSubmit}>
-          <TextField
-            name="title"
-            id="title"
-            label="Job Title"
-            placeholder="Search job by title"
-            onChange={handleOnChange}
-            value={title}
-          />
-          <FormControl sx={{ m: 1, minWidth: 200 }}>
+          <div className="form-input">
+            <TextField
+              name="title"
+              id="title"
+              label="Job Title"
+              placeholder="Search job by title"
+              onChange={handleOnChange}
+              value={title}
+              fullWidth
+              margin="normal"
+            />
+          </div>
+          <div className="form-input">
             <TextField
               value={company}
               onChange={handleOnChange}
               label="Company"
               name="company"
               select
+              fullWidth
+              margin="normal"
             >
-              <MenuItem value="">
+              <MenuItem selected value="">
                 <em></em>
               </MenuItem>
               {uniqueCompanies.map((companyItem, index) => (
@@ -66,9 +84,9 @@ export default function Header({ formData, handleOnChange, handleSubmit }) {
                 </MenuItem>
               ))}
             </TextField>
-          </FormControl>
+          </div>
 
-          <FormControl sx={{ m: 1, minWidth: 200 }}>
+          <div className="form-input">
             <TextField
               label="City"
               value={city}
@@ -76,6 +94,8 @@ export default function Header({ formData, handleOnChange, handleSubmit }) {
               variant="outlined"
               select
               onChange={handleOnChange}
+              fullWidth
+              margin="normal"
             >
               {uniqueCities.map((cityy, index) => (
                 <MenuItem value={cityy} key={`${index}-city`}>
@@ -83,29 +103,46 @@ export default function Header({ formData, handleOnChange, handleSubmit }) {
                 </MenuItem>
               ))}
             </TextField>
-          </FormControl>
+          </div>
 
-          <FormControl sx={{ m: 1, minWidth: 200 }}>
+          <div className="form-input">
             <TextField
               value={investor}
               onChange={handleOnChange}
               label="Investor"
               name="investor"
               select
+              fullWidth
+              margin="normal"
             >
               <MenuItem value="">
                 <em></em>
               </MenuItem>
               {uniqueInvestors.map((companyInvestor, index) => (
-                <MenuItem value={companyInvestor} key={`${index}-companyInvestor`}>
+                <MenuItem
+                  value={companyInvestor}
+                  key={`${index}-companyInvestor`}
+                >
                   {companyInvestor}
                 </MenuItem>
               ))}
             </TextField>
-          </FormControl>
-          <Button onClick={handleSubmit} variant="outlined">
-            Submit
-          </Button>
+          </div>
+          <div className="">
+            <Button onClick={handleSubmit} variant="outlined">
+              Submit
+            </Button>
+            <Button
+              value="Reset"
+              type="reset"
+              onClick={() => handleReset()}
+              variant="outlined"
+              className="reset"
+              style={{ marginLeft: "10px" }}
+            >
+              reset
+            </Button>
+          </div>
         </form>
       </div>
     </header>

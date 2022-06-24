@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Investor({ name }) {
   return (
-    <div>
+    <div className="investor-item">
       <span>{name}</span>
     </div>
   );

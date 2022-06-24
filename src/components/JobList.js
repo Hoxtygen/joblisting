@@ -2,6 +2,9 @@ import React, { Fragment } from "react";
 import { useQuery } from "@apollo/client";
 import { QUERY_JOBS_TITLE } from "../queries/Jobs";
 import JobCard from "./JobCard";
+import Loader from "./Loader";
+import NoResult from "./NoResult";
+import Error from "./Error";
 
 const JobList = ({ query }) => {
   const { loading, error, data } = useQuery(QUERY_JOBS_TITLE, {
@@ -12,11 +15,11 @@ const JobList = ({ query }) => {
       investor: `%${query.investor}%`
     },
   });
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error</p>;
+  if (loading) return <Loader/>;
+  if (error) return <Error errorMessage={error.message} />;
+  if(data&& data.jobs.length === 0) return <NoResult />
   return (
-    <div>
+    <div className="jobs">
       {data &&
         data.jobs.map((job) => (
           <Fragment key={job.id}>
