@@ -1,0 +1,10 @@
+
+Todo:
+  ✔ Create loading component @done(22-06-24 08:11)
+  ✔ Create Error component @done(22-06-24 08:44)
+  ✔ Create Empty component @done(22-06-24 08:11)
+  ✔ Add comment  where necessary @done(22-06-24 11:05)
+  ✔ Inline-block investors @done(22-06-24 08:11)
+  ✔ Consider changing font family and font weight @done(22-06-24 08:52)
+  ✔ Add reset button @done(22-06-24 10:55)
+  ☐ Add pagination (50-100 per view)

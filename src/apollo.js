@@ -1,4 +1,4 @@
-import ApolloClient from "apollo-boost";
+import {ApolloClient, InMemoryCache} from "@apollo/client";
 
 const {
   REACT_APP_GRAPHQL_URL: GRAPHQL_URL,
@@ -7,6 +7,10 @@ const {
 
 const client = new ApolloClient({
   uri: GRAPHQL_URL,
+  cache: new InMemoryCache(),
+  fetchOptions: {
+    mode: "no-cors"
+  }
 });
 
 export default client;
